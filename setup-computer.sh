@@ -60,7 +60,7 @@ install_updates() {
 install_tabby() {
     echo_start_install "tabby"
 
-    apt-get install gconf2 gconf-service
+    apt-get install gconf2 gconf-service -y
     regex='"browser_download_url": "(https:\/\/github.com\/Eugeny\/tabby\/releases\/download\/[^/]*\/[^/]*x64\.deb)"'
     response=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/Eugeny/tabby/releases/latest)
     [[ $response =~ $regex ]]
@@ -132,6 +132,14 @@ install_snapd() {
     echo_completed_install "snapd"
 }
 
+install_docker() {
+    echo_start_install "docker"
+
+    apt-get install docker docker-compose -y
+
+    echo_completed_install "docker"
+}
+
 install_visual_studio_code() {
     echo_start_install "visual studio code"
 
@@ -164,6 +172,17 @@ install_spotify() {
     echo_completed_install "spotify"
 }
 
+generate_github_ssh_key() {
+    echo_start_install "github generate ssh key"
+
+    ssh-keygen -t ed25519 -C "y.thibodeau1@gmail.com"
+    xclip ~/.ssh/github.pub
+    coloredLine red "Github SSH Key has been generated and copied to your clipboard"
+    coloredLine red "Upload the key here: https://github.com/settings/ssh/new"
+
+    echo_completed_install "github generate ssh key"
+}
+
 install_updates
 install_tabby
 install_zsh
@@ -171,7 +190,9 @@ install_fnm
 install_tere
 install_atuin
 install_snapd
+install_docker
 install_visual_studio_code
 install_stretchly
 install_slack
 install_spotify
+generate_github_ssh_key

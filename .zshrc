@@ -99,14 +99,16 @@ plugins=(
 )
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-source $ZSH/oh-my-zsh.sh
 
 zstyle ':completion:*' menu select
 autoload -U compinit && compinit
 
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
+zstyle :omz:plugins:ssh-agent identities github
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#506172'
+
+source $ZSH/oh-my-zsh.sh
 
 # tere
 c() {
